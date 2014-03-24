@@ -42,7 +42,8 @@ uhd_source_c::uhd_source_c(const std::string &args) :
                    args_to_io_signature(args)),
     _center_freq(0.0f),
     _freq_corr(0.0f),
-    _lo_offset(0.0f)
+    _lo_offset(0.0f),
+    _clock_source("")
 {
   size_t nchan = 1;
   dict_t dict = params_to_dict(args);
@@ -56,12 +57,16 @@ uhd_source_c::uhd_source_c(const std::string &args) :
   if (dict.count("lo_offset"))
     _lo_offset = boost::lexical_cast< double >( dict["lo_offset"] );
 
+  if (dict.count("clock_source"))
+    _clock_source = boost::lexical_cast< std::string >( dict["clock_source"] );
+
   std::string arguments; // rebuild argument string without internal arguments
   BOOST_FOREACH( dict_t::value_type &entry, dict ) {
     if ( "uhd" != entry.first &&
          "nchan" != entry.first &&
          "subdev" != entry.first &&
-         "lo_offset" != entry.first ) {
+         "lo_offset" != entry.first &&
+         "clock_source" != entry.first ) {
       arguments += entry.first + "=" + entry.second + ",";
     }
   }
@@ -79,6 +84,9 @@ uhd_source_c::uhd_source_c(const std::string &args) :
 
   if (0.0 != _lo_offset)
     std::cerr << "-- Using lo offset of " << _lo_offset << " Hz." << std::endl;
+
+  if ("" != _clock_source)
+    std::cerr << "-- Using clock source " << _clock_source << "." << std::endl;
 
   for ( size_t i = 0; i < nchan; i++ )
     connect( _src, i, self(), i );

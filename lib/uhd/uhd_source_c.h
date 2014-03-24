@@ -85,6 +85,7 @@ private:
   double _center_freq;
   double _freq_corr;
   double _lo_offset;
+  std::string _clock_source;
   gr::uhd::usrp_source::sptr _src;
 };
 
