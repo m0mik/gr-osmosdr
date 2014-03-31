@@ -43,7 +43,7 @@ uhd_source_c::uhd_source_c(const std::string &args) :
     _center_freq(0.0f),
     _freq_corr(0.0f),
     _lo_offset(0.0f),
-    _clock_source("")
+    _clock_source(std::string())
 {
   size_t nchan = 1;
   dict_t dict = params_to_dict(args);
@@ -57,9 +57,10 @@ uhd_source_c::uhd_source_c(const std::string &args) :
   if (dict.count("lo_offset"))
     _lo_offset = boost::lexical_cast< double >( dict["lo_offset"] );
 
-  if (dict.count("clock_source"))
+  if (dict.count("clock_source")) {
     _clock_source = boost::lexical_cast< std::string >( dict["clock_source"] );
-
+    std::cout << "_clock_source = " << _clock_source << std::endl;
+  }
   std::string arguments; // rebuild argument string without internal arguments
   BOOST_FOREACH( dict_t::value_type &entry, dict ) {
     if ( "uhd" != entry.first &&
@@ -85,8 +86,10 @@ uhd_source_c::uhd_source_c(const std::string &args) :
   if (0.0 != _lo_offset)
     std::cerr << "-- Using lo offset of " << _lo_offset << " Hz." << std::endl;
 
-  if ("" != _clock_source)
-    std::cerr << "-- Using clock source " << _clock_source << "." << std::endl;
+  if ("" != _clock_source) {
+    _src->set_clock_source(_clock_source);
+    std::cerr << "-- Using clock source " << _src->get_clock_source(0) << "." << std::endl;
+  }
 
   for ( size_t i = 0; i < nchan; i++ )
     connect( _src, i, self(), i );
@@ -192,7 +195,7 @@ double uhd_source_c::set_center_freq( double freq, size_t chan )
   uhd::tune_request_t tune_req(corr_freq, _lo_offset);
   _src->set_center_freq(tune_req, chan);
 
-  std::cout << "_src->set_center_freq() = " << freq << std::endl;
+  //std::cout << "_src->set_center_freq() = " << freq << std::endl;
 
   _center_freq = freq;
 
@@ -204,6 +207,7 @@ double uhd_source_c::get_center_freq( size_t chan )
   return _src->get_center_freq(chan);
 }
 
+/*
 std::string uhd_source_c::set_clock_source( const std::string & clock_source, size_t mboard, size_t chan )
 {
    std::cout << "_src->set_clock_source() = " << clock_source << std::endl;
@@ -218,6 +222,7 @@ std::string uhd_source_c::get_clock_source( size_t mboard, size_t chan )
   std::cout << "_src->get_clock_source()" << std::endl;
   return _src->get_clock_source(mboard);
 }
+*/
 
 double uhd_source_c::set_freq_corr( double ppm, size_t chan )
 {

@@ -50,8 +50,8 @@ public:
   double set_freq_corr( double ppm, size_t chan = 0 );
   double get_freq_corr( size_t chan = 0 );
 
-  std::string set_clock_source( const std::string & clock_source, size_t mboard = 0, size_t chan = 0 );
-  std::string get_clock_source( size_t mboard = 0, size_t chan = 0 );
+  //std::string set_clock_source( const std::string & clock_source, size_t mboard = 0, size_t chan = 0 );
+  //std::string get_clock_source( size_t mboard = 0, size_t chan = 0 );
 
   std::vector<std::string> get_gain_names( size_t chan = 0 );
   osmosdr::gain_range_t get_gain_range( size_t chan = 0 );
