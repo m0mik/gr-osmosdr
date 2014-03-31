@@ -81,6 +81,9 @@ public:
   double get_bandwidth( size_t chan = 0 );
   osmosdr::freq_range_t get_bandwidth_range( size_t chan = 0 );
 
+  std::string set_clock_source( const std::string & clock_source, size_t mboard = 0 );
+  std::string get_clock_source( size_t mboard = 0 );
+
 private:
   double _center_freq;
   double _freq_corr;
