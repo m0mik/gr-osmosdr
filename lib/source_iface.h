@@ -106,6 +106,23 @@ public:
   virtual double get_freq_corr( size_t chan = 0 ) = 0;
 
   /*!
+   * Get the clock source value.
+   * \param clock_source the clock source
+   * \param mboard the mboard identifier
+   * \param chan the channel index 0 to N-1
+   * \return clock source
+   */
+    virtual std::string set_clock_source( const std::string & clock_source, size_t mboard = 0, size_t chan = 0 ) { return std::string(); }
+
+  /*!
+   * Get the clock source value.
+   * \param mboard the mboard identifier
+   * \param chan the channel index 0 to N-1
+   * \return clock source
+   */
+    virtual std::string get_clock_source( size_t mboard = 0, size_t chan = 0 ) { return std::string(); }
+
+  /*!
    * Get the gain stage names of the underlying radio hardware.
    * \param chan the channel index 0 to N-1
    * \return a vector of strings containing the names of gain stages

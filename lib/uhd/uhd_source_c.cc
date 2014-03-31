@@ -204,7 +204,7 @@ double uhd_source_c::get_center_freq( size_t chan )
   return _src->get_center_freq(chan);
 }
 
-std::string uhd_source_c::set_clock_source( const std::string & clock_source, size_t mboard )
+std::string uhd_source_c::set_clock_source( const std::string & clock_source, size_t mboard, size_t chan )
 {
    std::cout << "_src->set_clock_source() = " << clock_source << std::endl;
 
@@ -213,7 +213,7 @@ std::string uhd_source_c::set_clock_source( const std::string & clock_source, si
   return get_clock_source(mboard);
 }
 
-std::string uhd_source_c::get_clock_source( size_t mboard )
+std::string uhd_source_c::get_clock_source( size_t mboard, size_t chan )
 {
   std::cout << "_src->get_clock_source()" << std::endl;
   return _src->get_clock_source(mboard);
