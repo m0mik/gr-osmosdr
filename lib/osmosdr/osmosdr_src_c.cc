@@ -365,25 +365,26 @@ double osmosdr_src_c::get_freq_corr( size_t chan )
 {
   return 0;
 }
-/*
+
 std::string osmosdr_src_c::set_clock_source( const std::string & clock_source, size_t mboard, size_t chan )
 {
   std::cout << "osmosdr_src_c->set_clock_source() = " << clock_source << std::endl;
-  if (_dev)
-    _dev->set_clock_source(clock_source, mboard, chan);
+  //if (_dev)
+  //  _dev->set_clock_source(clock_source, mboard, chan);
 
-  return get_clock_source(mboard, chan);
+  //return get_clock_source(mboard, chan);
+  return std::string();
 }
 
 std::string osmosdr_src_c::get_clock_source( size_t mboard, size_t chan )
 {
   std::cout << "osmosdr_src_c->get_clock_source()" << std::endl;
-  if (_dev)
-    return _dev->get_clock_source(mboard, chan);
+  //if (_dev)
+  //  return _dev->get_clock_source(mboard, chan);
 
   return std::string();
 }
-*/
+
 std::vector<std::string> osmosdr_src_c::get_gain_names( size_t chan )
 {
   std::vector< std::string > names;
