@@ -59,7 +59,7 @@ uhd_source_c::uhd_source_c(const std::string &args) :
 
   if (dict.count("clock_source")) {
     _clock_source = boost::lexical_cast< std::string >( dict["clock_source"] );
-    std::cout << "_clock_source = " << _clock_source << std::endl;
+    //std::cout << "_clock_source = " << _clock_source << std::endl;
   }
   std::string arguments; // rebuild argument string without internal arguments
   BOOST_FOREACH( dict_t::value_type &entry, dict ) {
