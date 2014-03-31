@@ -512,6 +512,32 @@ double source_impl::get_freq_corr( size_t chan )
   return 0;
 }
 
+//##################################
+
+std::string source_impl::set_clock_source(const std::string & clock_source, size_t mboard, size_t chan)
+{
+  size_t channel = 0;
+  BOOST_FOREACH( source_iface *dev, _devs )
+    for (size_t dev_chan = 0; dev_chan < dev->get_num_channels(); dev_chan++)
+      if ( chan == channel++ )
+        return dev->set_clock_source( clock_source, mboard, dev_chan );
+
+  return std::string();
+}
+
+std::string source_impl::get_clock_source(size_t mboard, size_t chan)
+{
+  size_t channel = 0;
+  BOOST_FOREACH( source_iface *dev, _devs )
+    for (size_t dev_chan = 0; dev_chan < dev->get_num_channels(); dev_chan++)
+      if ( chan == channel++ )
+        return dev->get_clock_source( mboard, dev_chan );
+
+  return std::string();
+}
+
+//#######################################
+
 std::vector<std::string> source_impl::get_gain_names( size_t chan )
 {
   size_t channel = 0;
